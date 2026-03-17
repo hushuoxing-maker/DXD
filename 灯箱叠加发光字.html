@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>古月 · 灯箱发光字门头AI智能体 Pro Max</title>
-
+<title>软膜灯箱门头设计 · AI生成器</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif;}
 
@@ -117,9 +116,8 @@ button{
 </head>
 
 <body>
-
 <div class="container">
-<h1>古月 · 灯箱发光字门头AI智能体</h1>
+<h1>软膜灯箱门头设计 · AI提示词生成器</h1>
 
 <div class="form-box">
 <input id="industry" placeholder="行业">
@@ -134,7 +132,6 @@ button{
 
 <script>
 function generate(){
-
   let industry=document.getElementById("industry").value;
   let name=document.getElementById("name").value;
   let slogan=document.getElementById("slogan").value;
@@ -151,8 +148,7 @@ function generate(){
   ];
 
   for(let i=0;i<20;i++){
-
-    let prompt=`${styles[i]}，白天自然光，门头完整正立面展示，正面平视视角，画面居中对称构图，无透视畸变，无裁切，无倾斜，无任何遮挡，门头宽度完整呈现，灯箱发光字门头设计，整体为单层结构，底部为整体无边框软膜灯箱门头（四周无金属边框、无收边条、无外露结构，灯箱边缘干净利落），灯箱表面平整通透，上方安装立体发光字与品牌logo（附着式安装于灯箱表面，采用金属支架或预埋固定结构），结构符合商业门头实际施工标准，行业为${industry}，品牌名称“${name}”，主营品类清晰展示，搭配标语“${slogan}”，字体现代简洁，材质采用无边框软膜灯箱、UV软膜、亚克力背光字、不锈钢精工字、迷你发光字，灯光表现为灯箱整体均匀柔和发光，发光字高亮立体发光效果，整体配色为${color}，8K高清，商业写实效果图，细节真实可施工，禁止墙面出现灯箱`;
+    let prompt=`${styles[i]}，白天自然光，门头完整正立面展示，正面平视视角，画面居中对称构图，无透视畸变，无裁切，无倾斜，无任何遮挡，门头宽度完整呈现，单层灯箱门头设计，底部整体为无边框软膜灯箱（材质：UV软膜，边缘无金属包边，无收边条，灯箱表面平整通透），上方安装立体发光字及品牌Logo（附着于软膜灯箱表面，采用隐形固定结构），结构符合实际施工标准，行业为${industry}，品牌名称“${name}”，主营品类清晰展示，搭配标语“${slogan}”，字体现代简洁，灯光效果为灯箱整体柔和发光，发光字高亮立体发光，整体配色为${color}，8K高清，商业写实效果图，细节真实可施工，禁止墙面出现灯箱`;
 
     let card=document.createElement("div");
     card.className="card";
@@ -173,6 +169,5 @@ function copyText(btn){
   setTimeout(()=>{btn.innerText="复制"},3000);
 }
 </script>
-
 </body>
 </html>
