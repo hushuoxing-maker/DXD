@@ -3,15 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>古月 · 灯箱发光字门头AI智能体 Pro版</title>
+<title>古月 · 灯箱发光字门头AI智能体 Pro Max</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif;}
 
 body{
-  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
   min-height:100vh;
+  background: linear-gradient(120deg,#0f2027,#2c5364,#1c1c1c);
+  background-size:400% 400%;
+  animation:bgMove 12s ease infinite;
   color:#fff;
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
 }
 
 .container{
@@ -23,17 +31,19 @@ body{
 h1{
   text-align:center;
   margin-bottom:30px;
-  font-size:28px;
-  background:linear-gradient(90deg,#00f5ff,#7efff5,#00ff87);
+  font-size:30px;
+  background:linear-gradient(90deg,#00f5ff,#00ffcc,#66ff00);
   -webkit-background-clip:text;
   color:transparent;
 }
 
 .form-box{
   background:rgba(255,255,255,0.05);
-  padding:20px;
-  border-radius:15px;
-  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:25px;
+  border-radius:20px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 0 30px rgba(0,255,255,0.1);
   margin-bottom:30px;
 }
 
@@ -42,24 +52,41 @@ input{
   padding:12px;
   margin:10px 0;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.08);
+  color:#fff;
   outline:none;
+  transition:0.3s;
+}
+
+input:focus{
+  box-shadow:0 0 10px #00f5ff;
+  background:rgba(255,255,255,0.12);
 }
 
 button{
   width:100%;
-  padding:12px;
-  background:linear-gradient(90deg,#00c6ff,#0072ff);
+  padding:14px;
+  margin-top:10px;
   border:none;
-  border-radius:10px;
-  color:#fff;
+  border-radius:12px;
   font-size:16px;
+  color:#fff;
   cursor:pointer;
+  background:linear-gradient(90deg,#00f5ff,#0072ff,#00ffcc);
+  background-size:200%;
+  animation:btnMove 4s linear infinite;
   transition:0.3s;
 }
 
+@keyframes btnMove{
+  0%{background-position:0%;}
+  100%{background-position:200%;}
+}
+
 button:hover{
-  transform:scale(1.03);
+  transform:scale(1.05);
+  box-shadow:0 0 20px #00f5ff;
 }
 
 .result{
@@ -69,30 +96,54 @@ button:hover{
 }
 
 .card{
-  background:rgba(255,255,255,0.05);
-  padding:20px;
-  border-radius:15px;
-  backdrop-filter:blur(8px);
   position:relative;
+  padding:20px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(15px);
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 20px rgba(0,255,255,0.1);
+  overflow:hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:20px;
+  padding:1px;
+  background:linear-gradient(120deg,#00f5ff,#00ffcc,#0072ff);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
 }
 
 .card p{
   font-size:13px;
   line-height:1.6;
   margin-bottom:10px;
+  color:#e8faff;
 }
 
 .copy-btn{
   position:absolute;
   right:15px;
   bottom:15px;
-  padding:6px 12px;
+  padding:6px 14px;
   font-size:12px;
   border:none;
-  border-radius:6px;
+  border-radius:8px;
   background:linear-gradient(90deg,#ff7e5f,#feb47b);
   color:#fff;
   cursor:pointer;
+  transition:0.3s;
+}
+
+.copy-btn:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 10px #ff7e5f;
 }
 </style>
 </head>
@@ -100,13 +151,13 @@ button:hover{
 <body>
 
 <div class="container">
-<h1>古月 · 灯箱发光字门头AI智能体器</h1>
+<h1>古月 · 灯箱发光字门头AI智能体</h1>
 
 <div class="form-box">
-<input id="industry" placeholder="输入行业（如：餐饮 / 炸鸡 / 火锅）">
+<input id="industry" placeholder="行业（如：餐饮 / 炸鸡）">
 <input id="name" placeholder="品牌名称">
 <input id="slogan" placeholder="标语">
-<input id="color" placeholder="主色调（如：红色 / 黑金 / 橙色）">
+<input id="color" placeholder="主色调（如：红色 / 黑金）">
 <button onclick="generate()">生成20组提示词</button>
 </div>
 
