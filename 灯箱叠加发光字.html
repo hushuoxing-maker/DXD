@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>古月 · 灯箱叠加发光字门头AI智能体</title>
+<title>古月 · 灯箱发光字门头AI智能体</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif;}
 
 body{
   min-height:100vh;
-  color:#fff;
   background: linear-gradient(270deg,#0f2027,#2c5364,#1c1c3c,#0f2027);
   background-size:600% 600%;
-  animation:bgMove 15s ease infinite;
+  animation:bgMove 18s ease infinite;
+  color:#fff;
 }
 
 @keyframes bgMove{
@@ -26,21 +26,20 @@ body{
 header{
   text-align:center;
   padding:60px 20px;
-  background:linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02));
+  background:rgba(255,255,255,0.05);
   backdrop-filter:blur(20px);
 }
 
 header h1{
   font-size:36px;
-  font-weight:700;
   background:linear-gradient(90deg,#00dbde,#fc00ff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
 header p{
-  margin-top:10px;
   opacity:0.7;
+  margin-top:10px;
 }
 
 /* 主体 */
@@ -50,7 +49,7 @@ main{
   padding:0 20px;
 }
 
-/* 输入区 */
+/* 输入 */
 .input-box{
   display:flex;
   gap:20px;
@@ -65,7 +64,6 @@ main{
   background:rgba(255,255,255,0.05);
   color:#fff;
   outline:none;
-  backdrop-filter:blur(10px);
 }
 
 .input-box input:focus{
@@ -136,25 +134,21 @@ button:hover{
   white-space:pre-wrap;
 }
 
-/* 复制按钮 */
+/* 复制 */
 .copy{
   position:absolute;
-  top:12px;
-  right:12px;
-  padding:6px 14px;
-  border-radius:8px;
+  top:10px;
+  right:10px;
+  padding:6px 12px;
   border:none;
-  font-size:12px;
+  border-radius:8px;
   cursor:pointer;
-  color:#fff;
   background:linear-gradient(135deg,#00dbde,#fc00ff);
+  color:#fff;
 }
 
-.copy.ok{
-  background:#2ecc71;
-}
+.copy.ok{background:#2ecc71;}
 
-/* 手机适配 */
 @media(max-width:768px){
   .input-box{flex-direction:column;}
 }
@@ -164,8 +158,8 @@ button:hover{
 <body>
 
 <header>
-  <h1>古月 · 灯箱叠加发光字门头AI智能体</h1>
-  <p>合作伙伴专用 · 20组可施工门头方案</p>
+  <h1>古月 · 灯箱发光字门头AI智能体</h1>
+  <p>合作伙伴专用｜20组可施工商业门头方案</p>
 </header>
 
 <main>
@@ -181,17 +175,15 @@ button:hover{
 
 <script>
 
-// 品牌词库（扩大差异）
-const prefixes=["壹号","金牌","老街","匠心","盛世","东方","本味","百味","拾光","御品"];
-const suffixes=["馆","坊","中心","空间","小厨","工坊","生活馆","料理","餐厅"];
+const prefixes=["壹号","金牌","匠心","老街","盛世","东方","本味","百味","御品","拾光"];
+const suffixes=["馆","坊","中心","小厨","工坊","餐厅","空间","料理","生活馆"];
 const slogans=["地道风味","现做现卖","匠心制作","每日新鲜","品质优选","口碑爆款","人气推荐"];
 
-// 组合函数
 function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
 
-function uniqueCombo(arr,count){
+function combo(arr,n){
   let copy=[...arr],res=[];
-  for(let i=0;i<count;i++){
+  for(let i=0;i<n;i++){
     let idx=Math.floor(Math.random()*copy.length);
     res.push(copy[idx]);
     copy.splice(idx,1);
@@ -200,24 +192,23 @@ function uniqueCombo(arr,count){
 }
 
 function generate(){
-  const industry=document.getElementById("industry").value || "餐饮店";
-  const box=document.getElementById("list");
+  let industry=document.getElementById("industry").value || "餐饮店";
+  let box=document.getElementById("list");
   box.innerHTML="";
 
-  let set=new Set();
+  let used=new Set();
   let i=0;
 
   while(i<20){
 
     let name=pick(prefixes)+industry+pick(suffixes);
     let slogan=pick(slogans);
+    let color=combo(["暖白","黑金","深蓝","高级灰","奶油色","原木色"],2);
 
-    let color=uniqueCombo(["暖白","黑金","深蓝","高级灰","奶油色","原木色"],2);
+    let prompt=`白天自然光，门头正立面，完整展示，正面平视视角，无透视畸变，无任何遮挡，灯箱发光字门头设计，底层整体软膜灯箱结构，上层立体发光字设计，行业为${industry}，品牌名称“${name}”，主营品类清晰展示，搭配标语“${slogan}”，字体现代简洁，材质采用软膜灯箱、无边框灯箱、UV软膜、亚克力背光字、不锈钢精工字、迷你发光字、金属包边，灯光表现为日间灯箱整体柔和发光，发光字高亮立体发光效果，整体配色为${color}，8K高清，商业写实效果图，细节丰富，色彩自然，可直接施工参考，禁止墙面出现灯箱`;
 
-    let prompt=`白天自然光，门头正立面，完整展示，正面平视视角，无透视畸变，无任何遮挡，灯箱叠加发光字门头设计，底层整体软膜灯箱结构，上层立体发光字组合，行业为${industry}，品牌名称“${name}”，主营品类清晰展示，搭配标语“${slogan}”，字体采用现代简洁设计，材质使用软膜灯箱、UV软膜、无边框灯箱、亚克力背光字、不锈钢精工字、迷你发光字、金属包边工艺，灯光表现为日间灯箱柔和发光，上层发光字高亮立体发光，双层发光效果明显，整体配色为${color}，商业写实风格，8K高清渲染，细节真实可施工，禁止墙面出现灯箱`;
-
-    if(!set.has(prompt)){
-      set.add(prompt);
+    if(!used.has(prompt)){
+      used.add(prompt);
 
       let card=document.createElement("div");
       card.className="card";
@@ -226,8 +217,8 @@ function generate(){
       pre.innerText=prompt;
 
       let btn=document.createElement("button");
-      btn.innerText="复制";
       btn.className="copy";
+      btn.innerText="复制";
 
       btn.onclick=()=>{
         navigator.clipboard.writeText(prompt);
