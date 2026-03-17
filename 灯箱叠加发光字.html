@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灯箱叠加发光字门头AI生成器 - 古月智能体</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif;}
+
+body{
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  min-height:100vh;
+  color:#fff;
+}
+
+/* 顶部 */
+header{
+  text-align:center;
+  padding:50px 20px;
+  background:linear-gradient(120deg,#1f1c2c,#928dab);
+  box-shadow:0 10px 40px rgba(0,0,0,0.4);
+}
+
+header h1{
+  font-size:34px;
+  letter-spacing:1px;
+}
+
+header p{
+  opacity:0.8;
+  margin-top:10px;
+}
+
+/* 主体 */
+main{
+  max-width:1200px;
+  margin:30px auto;
+  padding:0 20px;
+}
+
+/* 输入区 */
+.input-box{
+  display:flex;
+  gap:20px;
+  margin-bottom:20px;
+}
+
+.input-box input{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+  outline:none;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+  color:#fff;
+}
+
+/* 按钮 */
+button{
+  padding:14px 30px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:16px;
+  background:linear-gradient(135deg,#ff9966,#ff5e62);
+  color:#fff;
+  font-weight:bold;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  transition:0.3s;
+}
+
+button:hover{
+  transform:translateY(-3px);
+}
+
+/* 卡片 */
+.results{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(15px);
+  border-radius:18px;
+  padding:20px;
+  position:relative;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  transition:0.3s;
+  aspect-ratio:4/3;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+}
+
+.card pre{
+  white-space:pre-wrap;
+  font-size:13px;
+  line-height:1.5;
+}
+
+/* 复制按钮 */
+.copy{
+  position:absolute;
+  top:10px;
+  right:10px;
+  padding:6px 12px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#36d1dc,#5b86e5);
+  color:#fff;
+}
+
+.copy.ok{
+  background:#2ecc71;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>古月 · 灯箱叠加发光字门头AI智能体</h1>
+  <p>商业级门头设计 · 20组完全不重复 · 可直接施工</p>
+</header>
+
+<main>
+
+<div class="input-box">
+  <input id="industry" placeholder="输入行业，例如：火锅店 / 美容院 / 烧烤店">
+  <button onclick="generate()">生成20组</button>
+</div>
+
+<div class="results" id="list"></div>
+
+</main>
+
+<script>
+
+const names=["壹号","匠心","老街","味道","招牌","金牌","盛世","东方","本味","原味"];
+const slogans=["地道风味","现做现卖","匠心工艺","每日新鲜","品质优选","口碑之选"];
+
+function rand(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function combo(arr,n){
+  let copy=[...arr],res=[];
+  for(let i=0;i<n;i++){
+    let index=Math.floor(Math.random()*copy.length);
+    res.push(copy[index]);
+    copy.splice(index,1);
+  }
+  return res.join("、");
+}
+
+function generate(){
+  const industry=document.getElementById("industry").value || "餐饮店";
+  const box=document.getElementById("list");
+  box.innerHTML="";
+
+  let set=new Set();
+  let i=0;
+
+  while(i<20){
+
+    let name=rand(names)+industry;
+    let slogan=rand(slogans);
+
+    let colors=combo(["暖白","黑金","高级灰","深蓝","原木色","奶油色"],2);
+
+    let prompt=`白天自然光，门头正立面完整展示，正面平视视角，无透视畸变，无任何遮挡，灯箱叠加发光字门头设计，底层整体软膜灯箱结构，上层立体发光字组合，视觉层次清晰，行业为${industry}，品牌名称为“${name}”，主营品类明确展示，搭配标语“${slogan}”，整体字体为现代简洁风格，材质采用软膜灯箱、UV软膜、无边框灯箱、亚克力背光字、不锈钢精工字、迷你发光字、金属包边组合工艺，灯光表现为日间灯箱柔和均匀发光，上层发光字高亮立体发光，形成双层发光效果，整体配色为${colors}，商业写实风格，8K高清渲染，细节真实可施工，禁止墙面出现灯箱`;
+
+    if(!set.has(prompt)){
+      set.add(prompt);
+
+      let card=document.createElement("div");
+      card.className="card";
+
+      let pre=document.createElement("pre");
+      pre.innerText=prompt;
+
+      let btn=document.createElement("button");
+      btn.innerText="复制";
+      btn.className="copy";
+      btn.onclick=()=>{
+        navigator.clipboard.writeText(prompt);
+        btn.innerText="已复制";
+        btn.classList.add("ok");
+        setTimeout(()=>{
+          btn.innerText="复制";
+          btn.classList.remove("ok");
+        },2000);
+      }
+
+      card.appendChild(pre);
+      card.appendChild(btn);
+      box.appendChild(card);
+
+      i++;
+    }
+  }
+}
+
+</script>
+
+</body>
+</html>
