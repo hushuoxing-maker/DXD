@@ -56,18 +56,15 @@ input{
   background:rgba(255,255,255,0.08);
   color:#fff;
   outline:none;
-  transition:0.3s;
 }
 
 input:focus{
   box-shadow:0 0 10px #00f5ff;
-  background:rgba(255,255,255,0.12);
 }
 
 button{
   width:100%;
   padding:14px;
-  margin-top:10px;
   border:none;
   border-radius:12px;
   font-size:16px;
@@ -76,17 +73,11 @@ button{
   background:linear-gradient(90deg,#00f5ff,#0072ff,#00ffcc);
   background-size:200%;
   animation:btnMove 4s linear infinite;
-  transition:0.3s;
 }
 
 @keyframes btnMove{
   0%{background-position:0%;}
   100%{background-position:200%;}
-}
-
-button:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 20px #00f5ff;
 }
 
 .result{
@@ -103,28 +94,11 @@ button:hover{
   backdrop-filter:blur(15px);
   border:1px solid rgba(255,255,255,0.1);
   box-shadow:0 0 20px rgba(0,255,255,0.1);
-  overflow:hidden;
-}
-
-.card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:20px;
-  padding:1px;
-  background:linear-gradient(120deg,#00f5ff,#00ffcc,#0072ff);
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude;
 }
 
 .card p{
   font-size:13px;
   line-height:1.6;
-  margin-bottom:10px;
-  color:#e8faff;
 }
 
 .copy-btn{
@@ -138,12 +112,6 @@ button:hover{
   background:linear-gradient(90deg,#ff7e5f,#feb47b);
   color:#fff;
   cursor:pointer;
-  transition:0.3s;
-}
-
-.copy-btn:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 10px #ff7e5f;
 }
 </style>
 </head>
@@ -154,10 +122,10 @@ button:hover{
 <h1>古月 · 灯箱发光字门头AI智能体</h1>
 
 <div class="form-box">
-<input id="industry" placeholder="行业（如：餐饮 / 炸鸡）">
+<input id="industry" placeholder="行业">
 <input id="name" placeholder="品牌名称">
 <input id="slogan" placeholder="标语">
-<input id="color" placeholder="主色调（如：红色 / 黑金）">
+<input id="color" placeholder="主色调">
 <button onclick="generate()">生成20组提示词</button>
 </div>
 
@@ -166,6 +134,7 @@ button:hover{
 
 <script>
 function generate(){
+
   let industry=document.getElementById("industry").value;
   let name=document.getElementById("name").value;
   let slogan=document.getElementById("slogan").value;
@@ -183,7 +152,7 @@ function generate(){
 
   for(let i=0;i<20;i++){
 
-    let prompt=`${styles[i]}，白天自然光，门头正立面，完整展示，正面平视视角，无透视畸变，无任何遮挡，灯箱发光字门头设计，整体为单层结构，底部为整体软膜灯箱门头，灯箱表面干净简洁，上方安装立体发光字与品牌logo（附着式安装于灯箱表面，采用金属支架或预埋固定结构），结构符合商业门头实际施工标准，行业为${industry}，品牌名称“${name}”，主营品类清晰展示，搭配标语“${slogan}”，字体现代简洁，材质采用软膜灯箱、无边框灯箱、UV软膜、亚克力背光字、不锈钢精工字、迷你发光字、金属包边，灯光表现为日间灯箱整体均匀柔和发光，发光字高亮立体发光效果，整体配色为${color}，8K高清，商业写实效果图，细节真实可施工，禁止墙面出现灯箱`;
+    let prompt=`${styles[i]}，白天自然光，门头完整正立面展示，正面平视视角，画面居中对称构图，无透视畸变，无裁切，无倾斜，无任何遮挡，门头宽度完整呈现，灯箱发光字门头设计，整体为单层结构，底部为整体无边框软膜灯箱门头（四周无金属边框、无收边条、无外露结构，灯箱边缘干净利落），灯箱表面平整通透，上方安装立体发光字与品牌logo（附着式安装于灯箱表面，采用金属支架或预埋固定结构），结构符合商业门头实际施工标准，行业为${industry}，品牌名称“${name}”，主营品类清晰展示，搭配标语“${slogan}”，字体现代简洁，材质采用无边框软膜灯箱、UV软膜、亚克力背光字、不锈钢精工字、迷你发光字，灯光表现为灯箱整体均匀柔和发光，发光字高亮立体发光效果，整体配色为${color}，8K高清，商业写实效果图，细节真实可施工，禁止墙面出现灯箱`;
 
     let card=document.createElement("div");
     card.className="card";
